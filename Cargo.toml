@@ -1,0 +1,20 @@
+[package]
+name = "ft232h-nrf24l01-rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libftd2xx = { version = "0.32" }
+ftdi-embedded-hal = { version = "0.16.0", features = ["libftd2xx", "libftd2xx-static"] }
+embedded-hal = { version = "=1.0.0-alpha.11" }
+bitfield = "0.14.0"
+log = { version = "0.4.19", optional = true }
+log4rs = { version = "1.2", features = ["console_appender", "pattern_encoder"], optional = true }
+tokio = { version = "1.28", features = ["rt"], optional = true }
+defmt = { version = "0.3.5", optional = true }
+embassy-time = { version = "0.1", git = "https://github.com/embassy-rs/embassy", features = ["defmt", "defmt-timestamp-uptime"] }
+
+[features]
+default = ["std"]
+std = ["log", "log4rs", "tokio"]
+no_std = ["defmt"]
