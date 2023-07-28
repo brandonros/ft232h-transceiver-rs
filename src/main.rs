@@ -1,6 +1,4 @@
-mod bitfields;
 mod logger;
-mod nrf24;
 
 use std::error::Error;
 
@@ -21,10 +19,10 @@ fn main() -> Result<(), Box<dyn Error>> {
         nrf24_setup(&mut &spi_device, &mut ce_pin, &nrf24_role).await;
         match nrf24_role {
             Nrf24Role::Transmitter => {
-                nrf2401_transmitter_loop(&mut &spi_device, &mut ce_pin).await;
+                nrf24_transmitter_loop(&mut &spi_device, &mut ce_pin).await;
             }
             Nrf24Role::Receiver => {
-                nrf2401_receiver_loop(&mut &spi_device);
+                nrf24_receiver_loop(&mut &spi_device).await;
             }
         }
         Ok(())
